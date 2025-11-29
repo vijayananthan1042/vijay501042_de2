@@ -159,7 +159,7 @@
 							{
 								"name": "cdc",
 								"value": {
-									"value": "ggg",
+									"value": "@activity('find_max_cdc').output.resultSets[0].rows.cdc",
 									"type": "Expression"
 								}
 							}
