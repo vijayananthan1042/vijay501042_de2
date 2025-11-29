@@ -5,8 +5,6 @@
 			{
 				"name": "last_cdc_read",
 				"type": "Lookup",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -43,8 +41,6 @@
 			{
 				"name": "SQLtoBlob",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "last_cdc_read",
@@ -123,8 +119,6 @@
 			{
 				"name": "currenttimestamp",
 				"type": "SetVariable",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"secureOutput": false,
@@ -142,8 +136,6 @@
 			{
 				"name": "max_cdc_update",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "find_max_cdc",
