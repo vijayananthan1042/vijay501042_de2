@@ -5,6 +5,8 @@
 			{
 				"name": "last_cdc_read",
 				"type": "Lookup",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -41,6 +43,8 @@
 			{
 				"name": "SQLtoBlob",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
 						"activity": "last_cdc_read",
@@ -119,6 +123,8 @@
 			{
 				"name": "currenttimestamp",
 				"type": "SetVariable",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"secureOutput": false,
@@ -136,9 +142,11 @@
 			{
 				"name": "max_cdc_update",
 				"type": "Copy",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [
 					{
-						"activity": "SQLtoBlob",
+						"activity": "find_max_cdc",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -159,7 +167,7 @@
 							{
 								"name": "cdc",
 								"value": {
-									"value": "SELECT max(@{pipeline().parameters.cdc_column}) FROM @{pipeline().parameters.schema}.@{pipeline().parameters.table}",
+									"value": "ggg",
 									"type": "Expression"
 								}
 							}
@@ -212,6 +220,42 @@
 						}
 					}
 				]
+			},
+			{
+				"name": "find_max_cdc",
+				"type": "Script",
+				"dependsOn": [
+					{
+						"activity": "SQLtoBlob",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"linkedServiceName": {
+					"referenceName": "AzureSQLDB",
+					"type": "LinkedServiceReference"
+				},
+				"typeProperties": {
+					"scripts": [
+						{
+							"type": "Query",
+							"text": {
+								"value": "SELECT max(@{pipeline().parameters.cdc_column}) FROM @{pipeline().parameters.schema}.@{pipeline().parameters.table}",
+								"type": "Expression"
+							}
+						}
+					],
+					"scriptBlockExecutionTimeout": "02:00:00"
+				}
 			}
 		],
 		"parameters": {
