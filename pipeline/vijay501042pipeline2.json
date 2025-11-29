@@ -67,7 +67,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "SELECT * FROM @{pipeline().parameters.schema}.@{pipeline().parameters.table} WHERE @{pipeline().parameters.cdc_column} > '@{activity('last_cdc_read').output.value[0].cdc}'",
+							"value": "SELECT * FROM @{pipeline().parameters.schema}.@{pipeline().parameters.table} WHERE @{pipeline().parameters.cdc_column} >'@{if(empty(pipeline().parameters.from_date),activity('last_cdc_read').output[0].value[0].cdc,pipeline().parameters.from_date)}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -131,22 +131,6 @@
 						"value": "@utcNow()",
 						"type": "Expression"
 					}
-				}
-			},
-			{
-				"name": "Delete1",
-				"type": "Delete",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"enableLogging": true
 				}
 			},
 			{
@@ -320,6 +304,9 @@
 				"type": "string"
 			},
 			"cdc_column": {
+				"type": "string"
+			},
+			"from_date": {
 				"type": "string"
 			}
 		},
