@@ -318,6 +318,34 @@
 						}
 					]
 				}
+			},
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "ForEach1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://prod-19.centralindia.logic.azure.com:443/workflows/5fd0d9e5c6d7426cab2c7f81ecff7f4a/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=YllUmKENdzUvXLEgjAwWYzmTn3YTkvOCM4DM4BW_ovY",
+					"body": {
+						"value": "{\n    \"pipeline_name\":\"@{pipeline().Pipeline}\"\n    \"pipeline_runId\":\"@{pipeline().RunId}\"\n}",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
@@ -328,31 +356,31 @@
 						"schema": "dbo",
 						"table": "DimUser",
 						"cdc_column": "updated_at",
-						"from_date": ""
+						"from_date": "2025-01-01"
 					},
 					{
 						"schema": "dbo",
 						"table": "DimArtist",
 						"cdc_column": "updated_at",
-						"from_date": ""
+						"from_date": "2025-01-01"
 					},
 					{
 						"schema": "dbo",
 						"table": "DimTrack",
 						"cdc_column": "updated_at",
-						"from_date": ""
+						"from_date": "2025-01-01"
 					},
 					{
 						"schema": "dbo",
 						"table": "DimDate",
 						"cdc_column": "date",
-						"from_date": ""
+						"from_date": "2025-01-01"
 					},
 					{
 						"schema": "dbo",
 						"table": "FactStream",
 						"cdc_column": "stream_timestamp",
-						"from_date": ""
+						"from_date": "2025-01-01"
 					}
 				]
 			}
