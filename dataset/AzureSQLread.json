@@ -1,0 +1,12 @@
+{
+	"name": "AzureSQLread",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSQLDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
