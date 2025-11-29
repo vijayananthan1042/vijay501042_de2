@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "vijay501042adf2"
+		},
+		"ADLSGen2_accountKey": {
+			"value": ""
+		},
+		"AzureSQLDB_password": {
+			"value": ""
+		},
+		"ADLSGen2_properties_typeProperties_url": {
+			"value": "https://vijay501042sa2.dfs.core.windows.net/"
+		},
+		"AzureSQLDB_properties_typeProperties_server": {
+			"value": "vijay501042server1.database.windows.net"
+		},
+		"AzureSQLDB_properties_typeProperties_database": {
+			"value": "vijay501042_db1"
+		},
+		"AzureSQLDB_properties_typeProperties_userName": {
+			"value": "vijay501042"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
